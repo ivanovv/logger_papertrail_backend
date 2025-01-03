@@ -57,7 +57,8 @@ defmodule LoggerPapertrailBackend.Logger do
   defp meet_level?(_lvl, nil), do: true
 
   defp meet_level?(lvl, min) do
-    Logger.compare_levels(lvl, min) != :lt
+    level = if lvl == :warn, do: :warning, else: lvl
+    Logger.compare_levels(level, min) != :lt
   end
 
   defp configure(device, options) do
